@@ -2604,7 +2604,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c85dd8b4d2ec9654a87beb3764e304b0, type: 3}
   - {fileID: 21300000, guid: cd47665fd86f98f49b6e9bb023341431, type: 3}
   - {fileID: 21300000, guid: f04b4883ca55fc54b9e062648d058609, type: 3}
-  "pesta\xF1as":
+  pestanhas:
   - {fileID: 21300000, guid: 7494fb4f69f20754bba326c98bbb5574, type: 3}
   - {fileID: 21300000, guid: ce8640fc31c0bfe4b8a04bd9c1a1c0e1, type: 3}
   - {fileID: 21300000, guid: 0cf47146a5f3874418fc041fe11ba23c, type: 3}

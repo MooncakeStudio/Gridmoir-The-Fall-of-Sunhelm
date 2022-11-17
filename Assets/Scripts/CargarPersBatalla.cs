@@ -21,6 +21,7 @@ public class CargarPersBatalla : MonoBehaviour
     [SerializeField] private List<Sprite> extras;
     [SerializeField] private List<Sprite> cejas;
     [SerializeField] private List<Sprite> ropas;
+    [SerializeField] private List<Sprite> tiposAtaque;
 
     [SerializeField] private List<LifeUI> listaVidas;
     private void Start()
@@ -169,19 +170,19 @@ public class CargarPersBatalla : MonoBehaviour
         switch (sp.tipoAtaque)
         {
             case (int)TipoAtaque.SINGLE:
-                ataque.color = Color.red;
+                ataque.sprite = tiposAtaque[0];
                 break;
             case (int)TipoAtaque.ROW:
-                ataque.color = Color.blue;
+                ataque.sprite = tiposAtaque[1];
                 break;
             case (int)TipoAtaque.COLUMN:
-                ataque.color = Color.yellow;
+                ataque.sprite = tiposAtaque[2];
                 break;
             case (int)TipoAtaque.GRID:
-                ataque.color = Color.black;
+                ataque.sprite = tiposAtaque[3];
                 break;
             case (int)TipoAtaque.HEAL:
-                ataque.color = Color.green;
+                ataque.sprite = tiposAtaque[4];
                 break;
         }
 

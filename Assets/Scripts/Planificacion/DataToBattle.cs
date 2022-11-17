@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class DataToBattle : MonoBehaviour
 {
     private ListaPlayerSerializable lsp = new ListaPlayerSerializable();
-    private Celda[] listaCeldas = new Celda[3];
+    private Celda[] listaCeldas;
     [SerializeField] private List<GameObject> enemigosNivel;
     private List<CeldaManager> listCeldas = new List<CeldaManager>();
 
@@ -17,7 +17,7 @@ public class DataToBattle : MonoBehaviour
         if(listCeldas.Count > 0)
         {
             var i = 0;
-
+            listaCeldas = new Celda[listCeldas.Count];
             foreach (var celda in listCeldas)
             {
                 if (celda.getCelda().GetPersonaje() != null)
