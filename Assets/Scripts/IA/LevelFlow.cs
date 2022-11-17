@@ -41,8 +41,8 @@ public class LevelFlow : MonoBehaviour
     public GridManager GetGridPlayer() { return gridPlayer; }
     public IAManager GetIAManager() { return ia; }
     public bool isInitialized() { return initialize; }
-    
 
+    private bool turnoIATomado = false;
     public void SetGridIA(GridManager gridIA) { this.gridIA = gridIA; }
     public void SetGridPlayer(GridManager gridPlayer) { this.gridPlayer = gridPlayer; }
     public void SetIAManager(IAManager ia) { this.ia = ia; }
@@ -62,26 +62,19 @@ public class LevelFlow : MonoBehaviour
                 if (GetComponent<BattleController>().getTurnos() < ejercitoJugador.Count)
                 {
                     //Debug.Log(GetComponent<BattleController>().getTurnos());
+                    turnoIATomado = false;
                     
                 }
                 else if (QuedanEnemigos(ejercitoEnemigo))
                 {
-                    foreach (var enemigo in ejercitoEnemigo)
-                    {
-                        vidasEnemigos.Add(enemigo.getEnemigo().GetVida());
-                    }
 
-                    ia.RealizarTurno(gridIA, gridPlayer, textoTurno);
-
-                    foreach (var enemigo in ejercitoJugador)
+                    if (!turnoIATomado)
                     {
-                        vidasJugador.Add(enemigo.getPersonaje().GetVida());
+                        StartCoroutine(turnoIA());
                     }
-                    GetComponent<BattleController>().resetTurno();
+                    
 
                 }
-                
-
             }
             else
             {
@@ -99,6 +92,25 @@ public class LevelFlow : MonoBehaviour
             }
         }
         
+    }
+
+    IEnumerator turnoIA()
+    {
+        turnoIATomado = true;
+        foreach (var enemigo in ejercitoEnemigo)
+        {
+            vidasEnemigos.Add(enemigo.getEnemigo().GetVida());
+        }
+
+        ia.RealizarTurno(gridIA, gridPlayer, textoTurno);
+
+        yield return new WaitForSeconds(0.5f);
+        foreach (var enemigo in ejercitoJugador)
+        {
+            vidasJugador.Add(enemigo.getPersonaje().GetVida());
+        }
+        yield return new WaitForSeconds(0.25f);
+        GetComponent<BattleController>().resetTurno();
     }
 
     private bool QuedanAliados(List<PlayerController> comprobar)

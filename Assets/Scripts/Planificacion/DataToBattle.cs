@@ -13,26 +13,30 @@ public class DataToBattle : MonoBehaviour
 
     public void putGrid()
     {
-        var i = 0;
-
-        foreach (var celda in listCeldas)
+        if(listCeldas.Count > 0)
         {
-            if(celda.getCelda().GetPersonaje() != null)
+            var i = 0;
+
+            foreach (var celda in listCeldas)
             {
-                addSP(celda.getCelda().GetPersonaje().GetComponent<RectTransform>().Find("Character").gameObject);
-                listaCeldas[i] = celda.getCelda();
-                i++;
+                if (celda.getCelda().GetPersonaje() != null)
+                {
+                    addSP(celda.getCelda().GetPersonaje().GetComponent<RectTransform>().Find("Character").gameObject);
+                    listaCeldas[i] = celda.getCelda();
+                    i++;
+                }
+
             }
-            
-        }
 
-        foreach(var celda in listaCeldas)
-        {
-            //Debug.Log("Celda [" + celda.GetX() + "," + celda.GetY() + "]: " + celda.IsOccupied());
-        }
+            foreach (var celda in listaCeldas)
+            {
+                //Debug.Log("Celda [" + celda.GetX() + "," + celda.GetY() + "]: " + celda.IsOccupied());
+            }
 
-        DontDestroyOnLoad(gameObject);
-        SceneManager.LoadScene("Batalla");
+            DontDestroyOnLoad(gameObject);
+            SceneManager.LoadScene("Batalla");
+        }
+        
     }
 
     public ListaPlayerSerializable getLSP() { return lsp; }

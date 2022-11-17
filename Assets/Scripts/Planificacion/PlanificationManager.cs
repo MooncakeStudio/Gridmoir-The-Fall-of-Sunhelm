@@ -44,7 +44,7 @@ public class PlanificationManager : MonoBehaviour
                 {
                     if (!hit.gameObject.GetComponent<CeldaManager>().getCelda().IsOccupied())
                     {
-                        if (playerSelected != null && personajesSeleccionados < 3)
+                        if (playerSelected != null && personajesSeleccionados < 4)
                         {
                             hit.gameObject.GetComponent<CeldaManager>().getCelda().SetPersonaje(playerSelected);
                             hit.gameObject.GetComponent<CeldaManager>().getCelda().ChangeOccupied();
