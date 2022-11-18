@@ -894,6 +894,10 @@ MonoBehaviour:
   nivelesDS: {fileID: 720785731}
   niveles: []
   infoNivel: {fileID: 504567596}
+  botonesSeleccion:
+  - {fileID: 723147168}
+  - {fileID: 1268306096}
+  - {fileID: 1034761948}
 --- !u!1 &723147166
 GameObject:
   m_ObjectHideFlags: 0

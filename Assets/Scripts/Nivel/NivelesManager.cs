@@ -1,18 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NivelesManager : MonoBehaviour
 {
     // Atributos
 
     [SerializeField] private NivelesDataStream nivelesDS;
-    [SerializeField] private List<SerializableLevel> niveles;
+    private List<SerializableLevel> niveles;
 
     private int seleccion = 0;
 
     [SerializeField] private GameObject infoNivel;
+    [SerializeField] private List<Button> botonesSeleccion;
 
 
     // GETTERS & SETTERS
@@ -35,12 +38,60 @@ public class NivelesManager : MonoBehaviour
         this.niveles = niveles;
     }
 
+
+
+    // Awake se llama al cargar la instancia del script
+    private void Awake()
+    {
+        //PlayerPrefs.DeleteKey("Estados Niveles");
+        // Si no existe la tabla de estados en el PlayerPrefs
+        if (!PlayerPrefs.HasKey("Estados Niveles"))
+        {
+            Debug.Log("He llegado");
+            // Creamos el array de estados
+            SerializableEstadoList estados = new SerializableEstadoList();
+            int contador = 0;
+
+            // Rellenamos el array (primera posición no jugado el resto bloqueados)
+            estados.list.Add(Estado.NO_JUGADO);
+            contador++;
+            while (contador < 10)
+            {
+                estados.list.Add(Estado.BLOQUEADO);
+                contador++;
+            }
+
+            // Parseamos el array a un formato string
+            string estadosString = JsonUtility.ToJson(estados);
+            Debug.Log(estadosString);
+
+            // Guardamos la información en los PlayerPrefs
+            PlayerPrefs.SetString("Estados Niveles", estadosString);
+        }
+        niveles = nivelesDS.ObtenerLista();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        niveles = nivelesDS.ObtenerLista();
+        string estadosString = PlayerPrefs.GetString("Estados Niveles");
+
+        SerializableEstadoList estados = JsonUtility.FromJson<SerializableEstadoList>(estadosString);
+
+        Debug.Log(estados.list.Count);
+
+        for (int i = 0; i < botonesSeleccion.Count; i++)
+        {
+            if (estados.list[i] == 0)
+            {
+                botonesSeleccion[i].enabled = false;
+            }
+        }
     }
-    
+
+
+    // METODOS
+
     public void ActivaInfo(int idx)
     {
         SetSeleccion(idx);
@@ -65,4 +116,10 @@ public class NivelesManager : MonoBehaviour
         id.GetComponent<TextMeshProUGUI>().SetText("ID: " + sl.id);
         nombre.GetComponent<TextMeshProUGUI>().SetText("Nombre: " + sl.nombre);
     }
+}
+
+[Serializable]
+public class SerializableEstadoList
+{
+    public List<Estado> list = new List<Estado>();
 }

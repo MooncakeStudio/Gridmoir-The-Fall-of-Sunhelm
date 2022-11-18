@@ -1,16 +1,5 @@
-using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
-using UnityEngine.TextCore.Text;
-using UnityEngine.UI;
-using System.Runtime.Serialization.Formatters.Binary;
-using System;
-using UnityEngine.Networking;
-using Newtonsoft.Json.Linq;
 
 public class NivelesDataStream : MonoBehaviour
 {
